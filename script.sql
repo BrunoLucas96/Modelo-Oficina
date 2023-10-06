@@ -5,19 +5,19 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema Oficina DB
+-- Schema OficinaDataBase
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema Oficina DB
+-- Schema OficinaDataBase
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `Oficina DB` DEFAULT CHARACTER SET utf8 ;
-USE `Oficina DB` ;
+CREATE SCHEMA IF NOT EXISTS `OficinaDataBase` DEFAULT CHARACTER SET utf8 ;
+USE `OficinaDataBase` ;
 
 -- -----------------------------------------------------
--- Table `Oficina DB`.`Clientes`
+-- Table `OficinaDataBase`.`Clientes`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Oficina DB`.`Clientes` (
+CREATE TABLE IF NOT EXISTS `OficinaDataBase`.`Clientes` (
   `idClientes` INT NOT NULL,
   `Nome` VARCHAR(45) NOT NULL,
   `Telefone` VARCHAR(45) NOT NULL,
@@ -28,9 +28,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `Oficina DB`.`Mecânico`
+-- Table `OficinaDataBase`.`Mecânico`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Oficina DB`.`Mecânico` (
+CREATE TABLE IF NOT EXISTS `OficinaDataBase`.`Mecânico` (
   `idMecânico` INT NOT NULL,
   `Nome` VARCHAR(45) NOT NULL,
   `Endereço` VARCHAR(45) NOT NULL,
@@ -41,18 +41,18 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `Oficina DB`.`Tabela Preços`
+-- Table `OficinaDataBase`.`Tabela Preços`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Oficina DB`.`Tabela Preços` (
+CREATE TABLE IF NOT EXISTS `OficinaDataBase`.`Tabela Preços` (
   `idTabela Preços` INT NOT NULL,
   PRIMARY KEY (`idTabela Preços`))
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `Oficina DB`.`Ordem de Serviço OS`
+-- Table `OficinaDataBase`.`Ordem de Serviço OS`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Oficina DB`.`Ordem de Serviço OS` (
+CREATE TABLE IF NOT EXISTS `OficinaDataBase`.`Ordem de Serviço OS` (
   `idOrdem de Serviço OS` INT NOT NULL,
   `Data de emissão` DATE NOT NULL,
   `Preço serviço` FLOAT NOT NULL,
@@ -66,16 +66,16 @@ CREATE TABLE IF NOT EXISTS `Oficina DB`.`Ordem de Serviço OS` (
   INDEX `fk_Ordem de Serviço OS_Tabela Preços1_idx` (`Tabela Preços_idTabela Preços` ASC) VISIBLE,
   CONSTRAINT `fk_Ordem de Serviço OS_Tabela Preços1`
     FOREIGN KEY (`Tabela Preços_idTabela Preços`)
-    REFERENCES `Oficina DB`.`Tabela Preços` (`idTabela Preços`)
+    REFERENCES `OficinaDataBase`.`Tabela Preços` (`idTabela Preços`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `Oficina DB`.`Equipe de Mecânicos`
+-- Table `OficinaDataBase`.`Equipe de Mecânicos`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Oficina DB`.`Equipe de Mecânicos` (
+CREATE TABLE IF NOT EXISTS `OficinaDataBase`.`Equipe de Mecânicos` (
   `idEquipe de Mecânicos` INT NOT NULL,
   `Mecânico_idMecânico` INT NOT NULL,
   `Ordem de Serviço OS_idOrdem de Serviço OS` INT NOT NULL,
@@ -84,21 +84,21 @@ CREATE TABLE IF NOT EXISTS `Oficina DB`.`Equipe de Mecânicos` (
   INDEX `fk_Equipe de Mecânicos_Ordem de Serviço OS1_idx` (`Ordem de Serviço OS_idOrdem de Serviço OS` ASC) VISIBLE,
   CONSTRAINT `fk_Equipe de Mecânicos_Mecânico1`
     FOREIGN KEY (`Mecânico_idMecânico`)
-    REFERENCES `Oficina DB`.`Mecânico` (`idMecânico`)
+    REFERENCES `OficinaDataBase`.`Mecânico` (`idMecânico`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Equipe de Mecânicos_Ordem de Serviço OS1`
     FOREIGN KEY (`Ordem de Serviço OS_idOrdem de Serviço OS`)
-    REFERENCES `Oficina DB`.`Ordem de Serviço OS` (`idOrdem de Serviço OS`)
+    REFERENCES `OficinaDataBase`.`Ordem de Serviço OS` (`idOrdem de Serviço OS`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `Oficina DB`.`Veículo`
+-- Table `OficinaDataBase`.`Veículo`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Oficina DB`.`Veículo` (
+CREATE TABLE IF NOT EXISTS `OficinaDataBase`.`Veículo` (
   `idVeículo` INT NOT NULL,
   `Placa` VARCHAR(45) NOT NULL,
   `Modelo veículo` VARCHAR(45) NOT NULL,
@@ -109,21 +109,21 @@ CREATE TABLE IF NOT EXISTS `Oficina DB`.`Veículo` (
   INDEX `fk_Veículo_Equipe de Mecânicos1_idx` (`Equipe de Mecânicos_idEquipe de Mecânicos` ASC) VISIBLE,
   CONSTRAINT `fk_Veículo_Clientes`
     FOREIGN KEY (`Clientes_idClientes`)
-    REFERENCES `Oficina DB`.`Clientes` (`idClientes`)
+    REFERENCES `OficinaDataBase`.`Clientes` (`idClientes`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Veículo_Equipe de Mecânicos1`
     FOREIGN KEY (`Equipe de Mecânicos_idEquipe de Mecânicos`)
-    REFERENCES `Oficina DB`.`Equipe de Mecânicos` (`idEquipe de Mecânicos`)
+    REFERENCES `OficinaDataBase`.`Equipe de Mecânicos` (`idEquipe de Mecânicos`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `Oficina DB`.`Conserto`
+-- Table `OficinaDataBase`.`Conserto`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Oficina DB`.`Conserto` (
+CREATE TABLE IF NOT EXISTS `OficinaDataBase`.`Conserto` (
   `idConserto` INT NOT NULL,
   `Descrição do Conserto` VARCHAR(60) NOT NULL,
   `Veículo_idVeículo` INT NOT NULL,
@@ -131,16 +131,16 @@ CREATE TABLE IF NOT EXISTS `Oficina DB`.`Conserto` (
   INDEX `fk_Conserto_Veículo1_idx` (`Veículo_idVeículo` ASC) VISIBLE,
   CONSTRAINT `fk_Conserto_Veículo1`
     FOREIGN KEY (`Veículo_idVeículo`)
-    REFERENCES `Oficina DB`.`Veículo` (`idVeículo`)
+    REFERENCES `OficinaDataBase`.`Veículo` (`idVeículo`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `Oficina DB`.`Revisão`
+-- Table `OficinaDataBase`.`Revisão`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Oficina DB`.`Revisão` (
+CREATE TABLE IF NOT EXISTS `OficinaDataBase`.`Revisão` (
   `idRevisão` INT NOT NULL,
   `Descrição da Revisão` VARCHAR(60) NOT NULL,
   `Veículo_idVeículo` INT NOT NULL,
@@ -148,16 +148,16 @@ CREATE TABLE IF NOT EXISTS `Oficina DB`.`Revisão` (
   INDEX `fk_Revisão_Veículo1_idx` (`Veículo_idVeículo` ASC) VISIBLE,
   CONSTRAINT `fk_Revisão_Veículo1`
     FOREIGN KEY (`Veículo_idVeículo`)
-    REFERENCES `Oficina DB`.`Veículo` (`idVeículo`)
+    REFERENCES `OficinaDataBase`.`Veículo` (`idVeículo`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `Oficina DB`.`Serviços`
+-- Table `OficinaDataBase`.`Serviços`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Oficina DB`.`Serviços` (
+CREATE TABLE IF NOT EXISTS `OficinaDataBase`.`Serviços` (
   `idServiços` INT NOT NULL,
   `Descrição` VARCHAR(45) NOT NULL,
   `Preço` FLOAT NOT NULL,
@@ -166,9 +166,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `Oficina DB`.`OS tem serviços`
+-- Table `OficinaDataBase`.`OS tem serviços`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Oficina DB`.`OS tem serviços` (
+CREATE TABLE IF NOT EXISTS `OficinaDataBase`.`OS tem serviços` (
   `Ordem de Serviço OS_idOrdem de Serviço OS` INT NOT NULL,
   `Serviços_idServiços` INT NOT NULL,
   PRIMARY KEY (`Ordem de Serviço OS_idOrdem de Serviço OS`, `Serviços_idServiços`),
@@ -176,21 +176,21 @@ CREATE TABLE IF NOT EXISTS `Oficina DB`.`OS tem serviços` (
   INDEX `fk_Ordem de Serviço OS_has_Serviços_Ordem de Serviço OS1_idx` (`Ordem de Serviço OS_idOrdem de Serviço OS` ASC) VISIBLE,
   CONSTRAINT `fk_Ordem de Serviço OS_has_Serviços_Ordem de Serviço OS1`
     FOREIGN KEY (`Ordem de Serviço OS_idOrdem de Serviço OS`)
-    REFERENCES `Oficina DB`.`Ordem de Serviço OS` (`idOrdem de Serviço OS`)
+    REFERENCES `OficinaDataBase`.`Ordem de Serviço OS` (`idOrdem de Serviço OS`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Ordem de Serviço OS_has_Serviços_Serviços1`
     FOREIGN KEY (`Serviços_idServiços`)
-    REFERENCES `Oficina DB`.`Serviços` (`idServiços`)
+    REFERENCES `OficinaDataBase`.`Serviços` (`idServiços`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `Oficina DB`.`Peças`
+-- Table `OficinaDataBase`.`Peças`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Oficina DB`.`Peças` (
+CREATE TABLE IF NOT EXISTS `OficinaDataBase`.`Peças` (
   `idPeças` INT NOT NULL,
   `Descrição` VARCHAR(45) NOT NULL,
   `Preço` FLOAT NOT NULL,
@@ -199,9 +199,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `Oficina DB`.`OS/Peças`
+-- Table `OficinaDataBase`.`OS/Peças`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Oficina DB`.`OS/Peças` (
+CREATE TABLE IF NOT EXISTS `OficinaDataBase`.`OS/Peças` (
   `Peças_idPeças` INT NOT NULL,
   `Ordem de Serviço OS_idOrdem de Serviço OS` INT NOT NULL,
   PRIMARY KEY (`Peças_idPeças`, `Ordem de Serviço OS_idOrdem de Serviço OS`),
@@ -209,21 +209,21 @@ CREATE TABLE IF NOT EXISTS `Oficina DB`.`OS/Peças` (
   INDEX `fk_Peças_has_Ordem de Serviço OS_Peças1_idx` (`Peças_idPeças` ASC) VISIBLE,
   CONSTRAINT `fk_Peças_has_Ordem de Serviço OS_Peças1`
     FOREIGN KEY (`Peças_idPeças`)
-    REFERENCES `Oficina DB`.`Peças` (`idPeças`)
+    REFERENCES `OficinaDataBase`.`Peças` (`idPeças`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Peças_has_Ordem de Serviço OS_Ordem de Serviço OS1`
     FOREIGN KEY (`Ordem de Serviço OS_idOrdem de Serviço OS`)
-    REFERENCES `Oficina DB`.`Ordem de Serviço OS` (`idOrdem de Serviço OS`)
+    REFERENCES `OficinaDataBase`.`Ordem de Serviço OS` (`idOrdem de Serviço OS`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `Oficina DB`.``
+-- Table `OficinaDataBase`.`Autoriza`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Oficina DB`.`` (
+CREATE TABLE IF NOT EXISTS `OficinaDataBase`.`Autoriza` (
   `Clientes_idClientes` INT NOT NULL,
   `Ordem de Serviço OS_idOrdem de Serviço OS` INT NOT NULL,
   `Autorizado` TINYINT NOT NULL,
@@ -232,12 +232,12 @@ CREATE TABLE IF NOT EXISTS `Oficina DB`.`` (
   INDEX `fk_Clientes_has_Ordem de Serviço OS_Clientes1_idx` (`Clientes_idClientes` ASC) VISIBLE,
   CONSTRAINT `fk_Clientes_has_Ordem de Serviço OS_Clientes1`
     FOREIGN KEY (`Clientes_idClientes`)
-    REFERENCES `Oficina DB`.`Clientes` (`idClientes`)
+    REFERENCES `OficinaDataBase`.`Clientes` (`idClientes`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Clientes_has_Ordem de Serviço OS_Ordem de Serviço OS1`
     FOREIGN KEY (`Ordem de Serviço OS_idOrdem de Serviço OS`)
-    REFERENCES `Oficina DB`.`Ordem de Serviço OS` (`idOrdem de Serviço OS`)
+    REFERENCES `OficinaDataBase`.`Ordem de Serviço OS` (`idOrdem de Serviço OS`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
