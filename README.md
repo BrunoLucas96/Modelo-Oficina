@@ -1,5 +1,5 @@
 # Modelo Oficina
-Modelo Conceitual de BD para uma oficina mecânica, construído no MySQL Workbench, como forma de fixação do conteúdo estudado no curso SQL Specialist da DIO.
+Modelo Conceitual de BD para uma oficina mecânica, construído no MySQL Workbench, como forma de fixação do conteúdo da [Formação SQL Database Specialist](https://web.dio.me/track/1a5a10ed-417c-4fef-8531-2097ff072817) da DIO.
 
 ### Narrativa
 
